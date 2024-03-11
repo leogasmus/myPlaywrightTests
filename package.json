@@ -1,5 +1,5 @@
 {
-  "name": "my-api-test",
+  "name": "My Playwright testg",
   "version": "1.0.0",
   "description": "My project for practicing testing via Playwright.",
   "main": "index.js",
