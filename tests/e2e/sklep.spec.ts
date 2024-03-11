@@ -36,5 +36,11 @@ test.describe.only('Test shop' , () => {
         await expect(successMessage).toContainText('Password reset email has been sent.');
     });
 
+    test('Main Page have title', async ({page}) => {
+        await page.goto('https://skleptest.pl/');
+        await expect(page).toHaveTitle('Generic Shop – Just another web shop');
+        
+    });
+
 });
 
