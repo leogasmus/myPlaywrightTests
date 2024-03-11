@@ -1,22 +1,22 @@
 import { test, expect } from '@playwright/test'
 
+test.beforeEach( async ({page}) => {
+    await page.goto('/');
+});
 
 test.describe.only('Test shop' , () => {
     test('First test', async ({page}) => {
-        await page.goto('https://skleptest.pl/');
         const siteTitle = await page.locator("a.site-title");
         await page.pause();
         await expect(siteTitle).toContainText("Generic Shop");
     });
 
     test('Open most wanted category', async ({page}) => {
-        await page.goto('https://skleptest.pl/');
         await page.click('a[title="Most Wanted"]');
         await expect(page).toHaveURL('https://skleptest.pl/product-category/most-wanted/');
     });
 
     test('Error when to try login through invalid password', async ({page}) => {
-        await page.goto('https://skleptest.pl/');
         await page.getByRole('link', {name: 'Account'}).click();
         await expect(page).toHaveURL('https://skleptest.pl/my-account/');
         await page.locator('#username').fill('admin')
@@ -27,7 +27,6 @@ test.describe.only('Test shop' , () => {
     });
 
     test('Lost password', async ({page}) => {
-        await page.goto('https://skleptest.pl/');
         await page.getByRole('link', {name: 'Account'}).click();
         await page.getByRole('link', {name: 'Lost your password?'}).click();
         await page.locator('#user_login').fill('admin@gmail.com');
@@ -37,9 +36,8 @@ test.describe.only('Test shop' , () => {
     });
 
     test('Main Page have title', async ({page}) => {
-        await page.goto('https://skleptest.pl/');
         await expect(page).toHaveTitle('Generic Shop – Just another web shop');
-        
+
     });
 
 });
