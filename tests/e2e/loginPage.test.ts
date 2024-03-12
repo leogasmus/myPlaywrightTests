@@ -1,40 +1,43 @@
 import { test, expect } from '@playwright/test';
 
 import { getRandomString } from '../../utils/data-helpers';
+import { LoginPage } from '../../pages/loginPage';
+import { lostPasswordPage } from '../../pages/lostPassword';
 
 test.describe('Login page',  () => {
+    let loginPage: LoginPage;
+    let lostPasswordPage: lostPasswordPage;
 
     test.beforeEach( async ({page}) => {
-        await page.goto('/my-account/');
-        const pageTitle = await page.locator('.page-title');
-        await expect(pageTitle).toContainText('My account');
+        loginPage = new LoginPage(page);        
+        loginPage.loadLoginPage();
           
     });
 
     test('Error when to try login through invalid password', async ({page}) => {
         const randomPassword = await getRandomString();
-        await page.locator('#username').fill('admin')
-        await page.locator('#password').fill(randomPassword);
-        await page.getByRole('button', {name: 'Login'}).click();
-        const errorMsg = await page.locator('.woocommerce-error li');
-        await expect(errorMsg).toContainText('Error: The password you entered for the username admin is incorrect. Lost your password?');
+        await loginPage.usernameInput.fill('admin')
+        await loginPage.passwordInput.fill(randomPassword);
+        await loginPage.submitButton.click();
+        await expect(loginPage.errorMessage)
+        .toContainText('Error: The password you entered for the username admin is incorrect. Lost your password?');
     });
 
     test('Empty login form', async ({page}) => {
-        await page.getByRole('button', {name: 'Login'}).click();
-        const errorMsg = await page.locator('.woocommerce-error li');
-        await expect(errorMsg).toContainText('Error: Username is required.');
+        loginPage.submitButton.click();
+        await expect(loginPage.errorMessage)
+        .toContainText('Error: Username is required.');
     }); 
 
     test('Empty password', async ({page}) => {
-        await page.locator('#username').fill('admin')
-        await page.getByRole('button', {name: 'Login'}).click();
-        const errorMsg = await page.locator('.woocommerce-error li');
-        await expect(errorMsg).toContainText('Error: The password field is empty.');
+        loginPage.usernameInput.fill('admin');
+        loginPage.submitButton.click();
+        await expect(loginPage.errorMessage)
+        .toContainText('Error: The password field is empty.');
     }); 
     
     test('Lost password', async ({page}) => {
-        await page.getByRole('link', {name: 'Lost your password?'}).click();
+        await loginPage.lostPasswordButton.click();
         await page.locator('#user_login').fill('admin@gmail.com');
         await page.getByRole('button', {name: 'Reset password'}).click();
         const successMessage = await page.locator('.woocommerce-message');
