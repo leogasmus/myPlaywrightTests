@@ -1,29 +1,29 @@
 import { test, expect } from '@playwright/test'
- 
 
+import { HomePage } from '../../pages/homePage';
+
+ 
 test.describe('Test shop' , () => {
+    let homePage: HomePage;
+
     test.beforeEach( async ({page}) => {
-        await page.goto('/');
-        const siteTitle = await page.locator('a.site-title');
-        await expect(siteTitle).toContainText('Generic Shop');
+        homePage = new HomePage(page);
+        await homePage.loadHomePage();
     });
 
     test('Go back to the main page', async ({page}) => {
-          const shopNavButton = await page.locator("a[title='Shop']");
-          await shopNavButton.click();
+          await homePage.shopNavButton.click();
           await expect(page).toHaveURL('/');
     });
 
     test('Open Most Wanted category', async ({page}) => {
-        await page.click('a[title="Most Wanted"]');
-        await expect(page).toHaveURL('https://skleptest.pl/product-category/most-wanted/');
+        await homePage.mostWantedCategory.click();
+        await expect(page).toHaveURL('/product-category/most-wanted/');
     });
 
     test('Test All Category nav button', async({page}) => {
-        const categoriesNavButton = await page.locator("a[title='Catergries']");
-        await categoriesNavButton.hover();
-        const chosenCatery = await page.locator("a[title='All']");
-        await chosenCatery.click();
+        await homePage.categoriesNavButton.hover();
+        await homePage.allCateroiesNavButton.click();
         await expect(page).toHaveURL('/shop/');
     });
 
