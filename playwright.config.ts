@@ -5,7 +5,7 @@ export default defineConfig({
   retries: 2,
   globalTimeout: 600000,
   reporter: 'list',
-  testDir: './tests',
+  testDir: './tests/e2e',
   use: {
     headless: true,
     baseURL:'https://skleptest.pl/',
