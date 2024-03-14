@@ -5,7 +5,7 @@ export default defineConfig({
   retries: 2,
   globalTimeout: 600000,
   reporter: 'list',
-  testDir: './tests/e2e',
+  testDir: './tests/visual',
   use: {
     headless: true,
     baseURL:'https://skleptest.pl/',
@@ -17,6 +17,10 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome']},
     },
     {
+      name: 'chrome',
+      use: { ...devices['Desktop Chrome']},
+    },
+    {
       name: 'firefox',
       use: { ...devices['Desktop Firefox']},
     },
@@ -24,5 +28,5 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari']},
     },
-  ]
+  ],
 });

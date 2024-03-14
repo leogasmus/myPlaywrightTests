@@ -36,16 +36,10 @@ test.describe('Login page',  () => {
         .toContainText('Error: The password field is empty.');
     }); 
     
-    test.only('Lost password', async ({page}) => {
+    test('Lost password', async ({page}) => {
         lostPasswordPage = new LostPasswordPage(page);
-
         await loginPage.lostPasswordButton.click();
         await lostPasswordPage.usernameInput.fill('admin@gmail.com');
-        // await lostPasswordPage.usernameInput
-        // .fill(lostPasswordPage.generateMail());
-        
-        // console.log(lostPasswordPage.generateMail());
-        
         await lostPasswordPage.submitButton.click();
         await expect(lostPasswordPage.message).toContainText('Password reset email has been sent.');
     });

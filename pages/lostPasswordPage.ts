@@ -17,7 +17,7 @@ export class LostPasswordPage {
         this.message = page.locator('.woocommerce-message')
     };
 
-    generateMail(): string {
-        return `${getRandomString()}@gmail.com`
+    async generateMail() {
+        return `${await getRandomString()}@gmail.com`
     }
 };

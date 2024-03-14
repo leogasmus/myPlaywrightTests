@@ -1,10 +1,11 @@
 {
-  "name": "My Playwright testg",
+  "name": "My Playwright test",
   "version": "1.0.0",
   "description": "My project for practicing testing via Playwright.",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:visual": "npx playwright test --config=visual.config.ts --project=chrome"
   },
   "keywords": [],
   "author": "leogasmus",
