@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 
 import { getRandomString } from '../../utils/data-helpers';
 import { LoginPage } from '../../pages/loginPage';
-import { lostPasswordPage } from '../../pages/lostPassword';
+import { LostPasswordPage } from '../../pages/lostPasswordPage';
 
 test.describe('Login page',  () => {
     let loginPage: LoginPage;
-    let lostPasswordPage: lostPasswordPage;
+    let lostPasswordPage: LostPasswordPage;
 
     test.beforeEach( async ({page}) => {
         loginPage = new LoginPage(page);        
@@ -36,12 +36,18 @@ test.describe('Login page',  () => {
         .toContainText('Error: The password field is empty.');
     }); 
     
-    test('Lost password', async ({page}) => {
+    test.only('Lost password', async ({page}) => {
+        lostPasswordPage = new LostPasswordPage(page);
+
         await loginPage.lostPasswordButton.click();
-        await page.locator('#user_login').fill('admin@gmail.com');
-        await page.getByRole('button', {name: 'Reset password'}).click();
-        const successMessage = await page.locator('.woocommerce-message');
-        await expect(successMessage).toContainText('Password reset email has been sent.');
+        await lostPasswordPage.usernameInput.fill('admin@gmail.com');
+        // await lostPasswordPage.usernameInput
+        // .fill(lostPasswordPage.generateMail());
+        
+        // console.log(lostPasswordPage.generateMail());
+        
+        await lostPasswordPage.submitButton.click();
+        await expect(lostPasswordPage.message).toContainText('Password reset email has been sent.');
     });
 
 });

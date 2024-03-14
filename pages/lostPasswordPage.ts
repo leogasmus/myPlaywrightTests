@@ -1,6 +1,7 @@
 import { Locator, Page, } from '@playwright/test'
+import { getRandomString } from '../utils/data-helpers';
 
-export class lostPasswordPage {
+export class LostPasswordPage {
     readonly page: Page;
     readonly siteTitle: Locator;
     readonly usernameInput: Locator;
@@ -15,4 +16,8 @@ export class lostPasswordPage {
         this.submitButton =  page.getByRole('button', {name: 'Reset password'});
         this.message = page.locator('.woocommerce-message')
     };
+
+    generateMail(): string {
+        return `${getRandomString()}@gmail.com`
+    }
 };
