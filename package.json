@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:visual": "npx playwright test --config=visual.config.ts --project=chrome"
+    "test:visual": "npx playwright test --config=visual.config.ts --project=chrome",
+    "test:api": "npx playwright test --config=api.config.ts"
   },
   "keywords": [],
   "author": "leogasmus",
