@@ -21,7 +21,7 @@ test.describe('Visual HomePage Test' , () => {
         expect(mainSliderScreenshot).toMatchSnapshot('main-slider.png');
     });
 
-    test('HomePage withou the main slider', async ({page}) => {
+    test('HomePage without the main slider', async ({page}) => {
         const pageWithoutMainSlider = await page.screenshot({mask: [homePage.mainSlider]});
         expect(pageWithoutMainSlider).toMatchSnapshot('home-page-without-slider.png');
     });

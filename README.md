@@ -25,3 +25,11 @@
 ## Api test execution
 
 - run tests using node scripts `npm run tests:api`
+
+## Visual PDF tests
+
+- `npm run test:pdf`
+
+Using [compare-pdf](https://www.npmjs.com/package/compare-pdf)
+
+- imstall compare-pdf with `npm i compare-pdf`

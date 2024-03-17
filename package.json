@@ -6,13 +6,15 @@
   "scripts": {
     "test": "playwright test",
     "test:visual": "npx playwright test --config=visual.config.ts --project=chrome",
-    "test:api": "npx playwright test --config=api.config.ts"
+    "test:api": "npx playwright test --config=api.config.ts",
+    "test:pdf": "npx playwright test --config=pdf.config.ts"
   },
   "keywords": [],
   "author": "leogasmus",
   "license": "ISC",
   "dependencies": {
     "@playwright/test": "^1.42.1",
+    "compare-pdf": "^1.1.8",
     "ts-node": "^10.9.2"
   }
 }
